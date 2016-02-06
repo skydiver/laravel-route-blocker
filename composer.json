@@ -1,0 +1,23 @@
+{
+    "name": "skydiver/laravel-route-blocker",
+    "description": "Block routes by IP",
+    "keywords": ["php", "laravel", "routes", "block", "security"],
+    "homepage": "https://github.com/skydiver/laravel-route-blocker",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "5.1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Skydiver\\LaravelRouteBlocker\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Martín M.",
+            "homepage": "http://www.flydev.com",
+            "role": "Developer"
+        }
+    ]
+}
