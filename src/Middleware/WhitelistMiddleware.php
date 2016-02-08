@@ -18,11 +18,17 @@
             $allow = config('laravel-route-blocker.' . $group);
             $ip    = $request->getClientIp();
 
-            if(!isset($allow) OR !in_array($ip, $allow)) {
-                abort(config('laravel-route-blocker.response_status'), config('laravel-route-blocker.response_message'));
+            # SEARCH IN WHITELIST
+            if(is_array($allow)) {
+                foreach($allow as $addr) {
+                    if(str_is($addr, $ip)) {
+                        return $next($request);
+                    }
+                }
             }
 
-            return $next($request);
+            # THROW ERROR IF NOTHING FOUND
+            abort(config('laravel-route-blocker.response_status'), config('laravel-route-blocker.response_message'));
 
         }
 
