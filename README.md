@@ -1,4 +1,4 @@
-laravel-route-blocker
+Laravel Route Blocker
 ====
 
 Block routes by IP
@@ -57,5 +57,14 @@ Block routes by IP
 
     });
 ```
+
+
+
+## Artisan Commands
+* To get a list of current IPs groups run:
+```
+    $ php artisan route:blocks:groups
+```
+
 
 **You can create as many whitelists groups as you wish and protect differents set of routes with differents IPs**
