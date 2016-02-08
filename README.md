@@ -35,10 +35,15 @@ Block routes by IP
 
 * Create a config group on `config/laravel-route-blocker.php` and insert your allowed IPs:
 ```
-    'my_group' => [
-        '127.0.0.1',
-        '192.168.17.0',
-        '10.0.1.*'
+    'whitelist' => [
+        'my_group' => [
+            '127.0.0.1',
+            '192.168.17.0',
+            '10.0.1.*'
+        ],
+        'another_group' => [
+            '8.8.8.*'
+        ],        
     ],
 ```
 
