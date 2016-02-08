@@ -15,7 +15,7 @@
 
         public function handle($request, Closure $next, $group) {
 
-            $allow = config('laravel-route-blocker.' . $group);
+            $allow = config('laravel-route-blocker.whitelist.' . $group);
             $ip    = $request->getClientIp();
 
             # SEARCH IN WHITELIST
