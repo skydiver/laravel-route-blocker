@@ -66,5 +66,19 @@ Block routes by IP
     $ php artisan route:blocks:groups
 ```
 
+```
+    +---------+--------------+
+    | Group   | IP           |
+    +---------+--------------+
+    | group1  | 127.0.0.1    |
+    | group1  | 127.0.0.2    |
+    | group1  | 192.168.17.0 |
+    | group1  | 10.0.0.*     |
+    | group2  | 8.8.8.8      |
+    | group2  | 8.8.8.*      |
+    | group2  | 8.8.4.4      |
+    +---------+--------------+
+```
+
 
 **You can create as many whitelists groups as you wish and protect differents set of routes with differents IPs**
