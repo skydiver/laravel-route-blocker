@@ -81,4 +81,7 @@ Block routes by IP
 ```
 
 
+
+## Notes
+
 **You can create as many whitelists groups as you wish and protect differents set of routes with differents IPs**
