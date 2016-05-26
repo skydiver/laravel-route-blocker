@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "5.1.*"
+        "illuminate/support": ">=5.1"
     },
     "autoload": {
         "psr-4": {
@@ -16,7 +16,7 @@
     "authors": [
         {
             "name": "Martín M.",
-            "homepage": "http://www.flydev.com",
+            "homepage": "http://flydev.com",
             "role": "Developer"
         }
     ]
