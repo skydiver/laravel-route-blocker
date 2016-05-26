@@ -14,7 +14,7 @@
         public function boot() {
 
             # PUBLISH CONFIG
-            $this->publishes([__DIR__.'/config/config.php' => config_path('laravel-route-blocker.php')], 'config');
+            $this->publishes([__DIR__.'/config/config.php' => config_path('laravel-route-blocker.php')], 'LaravelRouteBlocker');
 
             # MERGE APP + PACKAGE CONFIG
             $this->mergeConfigFrom( __DIR__.'/config/config.php', 'laravel-route-blocker');

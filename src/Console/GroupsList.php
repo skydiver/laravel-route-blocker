@@ -17,10 +17,9 @@
 
         public function fire() {
 
-            $allow = config('laravel-route-blocker.whitelist');
-            $list  = [];
-
-            $this->table = $this->getHelperSet()->get('table');
+            $allow   = config('laravel-route-blocker.whitelist');
+            $headers = ['Group', 'IP'];
+            $list    = [];
 
             if(is_array($allow)) {
                 foreach($allow as $name => $addrs) {
@@ -32,8 +31,7 @@
                 }
             }
 
-            $this->table->setHeaders(['Group', 'IP'])->setRows($list);
-            $this->table->render($this->getOutput());
+            $this->table($headers, $list);
 
         }
 
