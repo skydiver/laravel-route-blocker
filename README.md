@@ -3,10 +3,10 @@ Laravel Route Blocker
 
 Block routes by IP
 
-Works on Laravel 5.1 & 5.2
-
 *(inspired on [Laravel Firewall](https://github.com/antonioribeiro/firewall))*
 
+## Requirements
+Laravel 5.1 or 5.2
 
 
 ## Installation
