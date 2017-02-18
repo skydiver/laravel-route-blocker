@@ -31,12 +31,12 @@ Laravel 5.1. 5.2, 5.3, 5.4
 
 ## Usage
 
-* Add middleware to `app/Http/Kernel.php` on `$routeMiddleware` array:
+1. Add middleware to `app/Http/Kernel.php` on `$routeMiddleware` array:
 ```
     'whitelist' => \Skydiver\LaravelRouteBlocker\Middleware\WhitelistMiddleware::class,
 ```
 
-* Create a config group on `config/laravel-route-blocker.php` and insert your allowed IPs:
+2. Create a config group on `config/laravel-route-blocker.php` and insert your allowed IPs:
 ```
     'whitelist' => [
         'my_group' => [
@@ -50,7 +50,7 @@ Laravel 5.1. 5.2, 5.3, 5.4
     ],
 ```
 
-* Put your protected routes inside a group and specify the whitelist parameter:
+3. Put your protected routes inside a group and specify the whitelist parameter:
 ```
     Route::group(['middleware' => 'whitelist:my_group'], function() {
 
@@ -61,7 +61,7 @@ Laravel 5.1. 5.2, 5.3, 5.4
     });
 ```
 
-
+---
 
 ## Artisan Commands
 * To get a list of current IPs groups run:
@@ -83,7 +83,7 @@ Laravel 5.1. 5.2, 5.3, 5.4
     +---------+--------------+
 ```
 
-
+---
 
 ## Notes
 
