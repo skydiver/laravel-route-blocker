@@ -20,7 +20,7 @@
             $this->mergeConfigFrom( __DIR__.'/config/config.php', 'laravel-route-blocker');
 
             # REGISTER ARTISAN COMMANDS
-            $this->app['route_blocker.groups_list.command'] = $this->app->share(function($app) {
+            $this->app->singleton('route_blocker.groups_list.command', function($app){
                 return new GroupsList;
             });
             $this->commands('route_blocker.groups_list.command');
