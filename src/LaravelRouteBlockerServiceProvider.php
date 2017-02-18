@@ -2,7 +2,6 @@
 
     namespace Skydiver\LaravelRouteBlocker;
 
-    use App;
     use Illuminate\Support\ServiceProvider;
     use Skydiver\LaravelRouteBlocker\Console\GroupsList as GroupsList;
 
@@ -21,7 +20,7 @@
             $this->mergeConfigFrom( __DIR__.'/config/config.php', 'laravel-route-blocker');
 
             # REGISTER ARTISAN COMMANDS
-            if(str_contains(App::VERSION(), '5.4')) {
+            if(str_contains($this->app->version(), '5.4')) {
 
                 # Laravel 5.4
                 $this->app->singleton('route_blocker.groups_list.command', function($app){
