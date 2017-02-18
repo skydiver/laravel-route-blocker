@@ -14,8 +14,8 @@ Laravel 5.1. 5.2, 5.3, 5.4
 ## Installation
 
 1. Require this package in your `composer.json` and run composer update.  
-`"skydiver/laravel-route-blocker": "1.0.*"` for Laravel 5.1, 5.2, 5.3
-`"skydiver/laravel-route-blocker": "1.1.*"` for Laravel 5.4
+`"skydiver/laravel-route-blocker": "1.0.*"` for Laravel 5.1, 5.2, 5.3   
+`"skydiver/laravel-route-blocker": "1.1.*"` for Laravel 5.4 
 
 2. After updating composer, add ServiceProvider to the providers array in config/app.php
 ```php
