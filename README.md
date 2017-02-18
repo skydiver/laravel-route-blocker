@@ -13,10 +13,8 @@ Laravel 5.1. 5.2, 5.3, 5.4
 
 ## Installation
 
-* Require this package in your composer.json and run composer update.
-
+1. Require this package in your composer.json and run composer update:
 `"skydiver/laravel-route-blocker": "1.0.*"` for Laravel 5.1, 5.2, 5.3
-
 `"skydiver/laravel-route-blocker": "1.1.*"` for Laravel 5.4
 
 
