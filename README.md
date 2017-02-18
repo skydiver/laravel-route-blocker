@@ -13,6 +13,15 @@ Laravel 5.1. 5.2, 5.3, 5.4
 
 ## Installation
 
+1. To `composer.json` add:  
+`"zofe/rapyd": "2.2.*"` for Laravel 5.2  
+`"zofe/rapyd": "2.1.*"` for Laravel 5.1  
+`"zofe/rapyd": "2.0.*"` for Laravel 5.0  
+`"zofe/rapyd": "1.3.*"` for Laravel 4.*  
+
+
+
+
 1. Require this package in your composer.json and run composer update:
 `"skydiver/laravel-route-blocker": "1.0.*"` for Laravel 5.1, 5.2, 5.3
 `"skydiver/laravel-route-blocker": "1.1.*"` for Laravel 5.4
