@@ -21,6 +21,7 @@
         ],
 
         # RESPONSE SETTINGS
+        'redirect_to' => '',
         'response_status'  => 403,
         'response_message' => ''
 

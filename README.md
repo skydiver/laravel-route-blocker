@@ -37,7 +37,7 @@ Laravel 5.1. 5.2, 5.3, 5.4
     'whitelist' => \Skydiver\LaravelRouteBlocker\Middleware\WhitelistMiddleware::class,
 ```
 
-2. Create a config group on `config/laravel-route-blocker.php` and insert your allowed IPs:
+2. Create a config group on `config/laravel-route-blocker.php` and insert your allowed IPs and controller/view to redirect to for denied IPs:
 ```
     'whitelist' => [
         'my_group' => [
@@ -49,6 +49,8 @@ Laravel 5.1. 5.2, 5.3, 5.4
             '8.8.8.*'
         ],        
     ],
+    
+    'redirect_to' => '',
 ```
 
 3. Put your protected routes inside a group and specify the whitelist parameter:

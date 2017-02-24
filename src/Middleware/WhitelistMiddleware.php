@@ -26,10 +26,14 @@
                     }
                 }
             }
-
-            # THROW ERROR IF NOTHING FOUND
-            abort(config('laravel-route-blocker.response_status'), config('laravel-route-blocker.response_message'));
-
+            
+            if(config('laravel-route-blocker.redirect_to')):
+                # REDIRECT TO CUSTOM ROUTE ASSIGNED IN THE CONFIG OPTIONS
+                return redirect()->to(config('laravel-route-blocker.redirect_to'));
+            else: 
+                # THROW ERROR IF NOTHING FOUND
+                abort(config('laravel-route-blocker.response_status'), config('laravel-route-blocker.response_message'));
+            endif;
         }
 
     }
