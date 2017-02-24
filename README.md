@@ -35,7 +35,7 @@ Laravel 5.1 or 5.2
     'whitelist' => \Skydiver\LaravelRouteBlocker\Middleware\WhitelistMiddleware::class,
 ```
 
-* Create a config group on `config/laravel-route-blocker.php` and insert your allowed IPs and controller/view to redirect to:
+* Create a config group on `config/laravel-route-blocker.php` and insert your allowed IPs and controller/view to redirect to for denied IPs:
 ```
     'whitelist' => [
         'my_group' => [
