@@ -21,9 +21,9 @@
         ],
 
         # RESPONSE SETTINGS
-        'redirect_to' => '',
-        'response_status'  => 403,
-        'response_message' => ''
+        'redirect_to'      => '',   # URL TO REDIRECT IF BLOCKED
+        'response_status'  => 403,  # STATUS CODE (403, 404 ...)
+        'response_message' => ''    # MESSAGE (COMBINED WITH STATUS CODE)
 
     ];
 

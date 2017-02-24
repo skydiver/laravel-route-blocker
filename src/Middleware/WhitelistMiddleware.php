@@ -26,14 +26,14 @@
                     }
                 }
             }
-            
-            if(config('laravel-route-blocker.redirect_to')):
-                # REDIRECT TO CUSTOM ROUTE ASSIGNED IN THE CONFIG OPTIONS
+
+            # REDIRECT OR THROW ERROR
+            if(config('laravel-route-blocker.redirect_to') && filter_var(config('laravel-route-blocker.redirect_to'), FILTER_VALIDATE_URL)) {
                 return redirect()->to(config('laravel-route-blocker.redirect_to'));
-            else: 
-                # THROW ERROR IF NOTHING FOUND
+            } else {
                 abort(config('laravel-route-blocker.response_status'), config('laravel-route-blocker.response_message'));
-            endif;
+            }
+
         }
 
     }
