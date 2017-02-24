@@ -1,41 +1,43 @@
-Laravel Route Blocker
-====
+#Laravel Route Blocker
 
 Block routes by IP
 
 *(inspired on [Laravel Firewall](https://github.com/antonioribeiro/firewall))*
 
-## Requirements
-Laravel 5.1 or 5.2
+---
 
+## Requirements
+Laravel 5.1. 5.2, 5.3, 5.4
+
+---
 
 ## Installation
 
-* Require this package in your composer.json and run composer update.
+1. Require this package in your composer.json and run composer update.
 ```
     "skydiver/laravel-route-blocker": "dev-master"
 ```
 
-* After updating composer, add ServiceProvider to the providers array in config/app.php
+2. After updating composer, add ServiceProvider to the providers array in config/app.php
 ```php
     Skydiver\LaravelRouteBlocker\LaravelRouteBlockerServiceProvider::class,
 ```
 
-* Then publish the config file:
+3. Then publish the config file:
 ```
     $ php artisan vendor:publish --tag=LaravelRouteBlocker
 ```
 
-
+---
 
 ## Usage
 
-* Add middleware to `app/Http/Kernel.php` on `$routeMiddleware` array:
+1. Add middleware to `app/Http/Kernel.php` on `$routeMiddleware` array:
 ```
     'whitelist' => \Skydiver\LaravelRouteBlocker\Middleware\WhitelistMiddleware::class,
 ```
 
-* Create a config group on `config/laravel-route-blocker.php` and insert your allowed IPs and controller/view to redirect to for denied IPs:
+2. Create a config group on `config/laravel-route-blocker.php` and insert your allowed IPs and controller/view to redirect to for denied IPs:
 ```
     'whitelist' => [
         'my_group' => [
@@ -51,7 +53,7 @@ Laravel 5.1 or 5.2
     'redirect_to' => '',
 ```
 
-* Put your protected routes inside a group and specify the whitelist parameter:
+3. Put your protected routes inside a group and specify the whitelist parameter:
 ```
     Route::group(['middleware' => 'whitelist:my_group'], function() {
 
@@ -62,7 +64,7 @@ Laravel 5.1 or 5.2
     });
 ```
 
-
+---
 
 ## Artisan Commands
 * To get a list of current IPs groups run:
@@ -84,7 +86,7 @@ Laravel 5.1 or 5.2
     +---------+--------------+
 ```
 
-
+---
 
 ## Notes
 
