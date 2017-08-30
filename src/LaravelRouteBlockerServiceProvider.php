@@ -20,9 +20,9 @@
             $this->mergeConfigFrom( __DIR__.'/config/config.php', 'laravel-route-blocker');
 
             # REGISTER ARTISAN COMMANDS
-            if(str_contains($this->app->version(), '5.4')) {
+            if(str_contains($this->app->version(), '5.4') || str_contains($this->app->version(), '5.5')) {
 
-                # Laravel 5.4
+                # Laravel 5.4 / 5.5
                 $this->app->singleton('route_blocker.groups_list.command', function($app){
                     return new GroupsList;
                 });
