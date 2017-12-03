@@ -14,7 +14,12 @@
         public function __construct() {
             parent::__construct();
         }
-
+           
+        public function handle()
+        {
+                return $this->fire();
+        } 
+        
         public function fire() {
 
             $allow   = config('laravel-route-blocker.whitelist');
