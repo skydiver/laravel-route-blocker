@@ -1,41 +1,45 @@
 <?php
 
-    namespace Skydiver\LaravelRouteBlocker\Console;
+namespace Skydiver\LaravelRouteBlocker\Console;
 
-    use Illuminate\Console\Command;
+use Illuminate\Console\Command;
 
-    class GroupsList extends Command {
+class GroupsList extends Command {
 
-        protected $name        = 'route:blocks:groups';
-        protected $description = 'Lists routes blocks groups.';
+    protected $name        = 'route:blocks:groups';
+    protected $description = 'Lists routes blocks groups.';
 
-        protected $table;
+    protected $table;
 
-        public function __construct() {
-            parent::__construct();
-        }
+    public function __construct() {
+        parent::__construct();
+    }
 
-        public function fire() {
+    public function fire() {
 
-            $allow   = config('laravel-route-blocker.whitelist');
-            $headers = ['Group', 'IP'];
-            $list    = [];
+        $allow   = config('laravel-route-blocker.whitelist');
+        $headers = ['Group', 'IP'];
+        $list    = [];
 
-            if(is_array($allow)) {
-                foreach($allow as $name => $addrs) {
-                    foreach($addrs as $addr) {
-                        $list[] = [
-                            $name, $addr
-                        ];
-                    }
+        if(is_array($allow)) {
+            foreach($allow as $name => $addrs) {
+                foreach($addrs as $addr) {
+                    $list[] = [
+                        $name, $addr
+                    ];
                 }
             }
-
-            $this->table($headers, $list);
-
         }
 
-
+        $this->table($headers, $list);
     }
+
+    // Laravel 5.5
+    public function handle() {
+        $this->fire();
+    }
+
+
+}
 
 ?>
