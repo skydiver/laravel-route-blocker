@@ -15,15 +15,20 @@ class GroupsList extends Command {
         parent::__construct();
     }
 
+    public function handle() {
+        // Laravel 5.5 and superior
+        $this->fire();
+    }
+
     public function fire() {
 
         $allow   = config('laravel-route-blocker.whitelist');
         $headers = ['Group', 'IP'];
         $list    = [];
 
-        if(is_array($allow)) {
-            foreach($allow as $name => $addrs) {
-                foreach($addrs as $addr) {
+        if (is_array($allow)) {
+            foreach ($allow as $name => $addrs) {
+                foreach ($addrs as $addr) {
                     $list[] = [
                         $name, $addr
                     ];
@@ -33,12 +38,6 @@ class GroupsList extends Command {
 
         $this->table($headers, $list);
     }
-
-    // Laravel 5.5
-    public function handle() {
-        $this->fire();
-    }
-
 
 }
 
