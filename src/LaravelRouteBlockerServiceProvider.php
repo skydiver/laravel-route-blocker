@@ -20,17 +20,17 @@ class LaravelRouteBlockerServiceProvider extends ServiceProvider {
         $this->mergeConfigFrom(__DIR__.'/config/config.php', 'laravel-route-blocker');
 
         // REGISTER ARTISAN COMMANDS
-        if (str_contains($this->app->version(), '5.1') || str_contains($this->app->version(), '5.2') || str_contains($this->app->version(), '5.3')) {
+        if (version_compare($this->app->version(), '5.4', '>=')) {
 
-            // Laravel 5.1, 5.2, 5.3
-            $this->app['route_blocker.groups_list.command'] = $this->app->share(function ($app) {
+            // Laravel 5.4 and superior
+            $this->app->singleton('route_blocker.groups_list.command', function ($app) {
                 return new GroupsList;
             });
 
         } else {
 
-            // Laravel 5.4 and superior
-            $this->app->singleton('route_blocker.groups_list.command', function ($app) {
+            // Laravel 5.1, 5.2, 5.3
+            $this->app['route_blocker.groups_list.command'] = $this->app->share(function ($app) {
                 return new GroupsList;
             });
 
