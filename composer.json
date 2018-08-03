@@ -13,6 +13,13 @@
             "Skydiver\\LaravelRouteBlocker\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Skydiver\\LaravelRouteBlocker\\LaravelRouteBlockerServiceProvider"
+            ]
+        }
+    },
     "authors": [
         {
             "name": "Martín M.",
