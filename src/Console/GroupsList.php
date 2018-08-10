@@ -4,23 +4,27 @@ namespace Skydiver\LaravelRouteBlocker\Console;
 
 use Illuminate\Console\Command;
 
-class GroupsList extends Command {
+class GroupsList extends Command
+{
 
     protected $name        = 'route:blocks:groups';
     protected $description = 'Lists routes blocks groups.';
 
     protected $table;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    public function handle() {
+    public function handle()
+    {
         // Laravel 5.5 and superior
         $this->fire();
     }
 
-    public function fire() {
+    public function fire()
+    {
 
         $allow   = config('laravel-route-blocker.whitelist');
         $headers = ['Group', 'IP'];
@@ -38,7 +42,4 @@ class GroupsList extends Command {
 
         $this->table($headers, $list);
     }
-
 }
-
-?>
