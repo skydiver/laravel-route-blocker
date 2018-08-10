@@ -26,5 +26,3 @@
         'response_message' => ''    // MESSAGE (COMBINED WITH STATUS CODE)
 
     ];
-
-?>
