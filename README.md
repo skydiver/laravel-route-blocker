@@ -7,7 +7,7 @@ Block routes by IP
 ---
 
 ## Requirements
-Laravel 5.1. 5.2, 5.3, 5.4, 5.5, 5.6
+Laravel 5.x, 6.x and 7.x
 
 ---
 
@@ -19,14 +19,14 @@ Laravel 5.1. 5.2, 5.3, 5.4, 5.5, 5.6
     $ composer require skydiver/laravel-route-blocker
     ```
 
-2) Add service provider (for Laravel 5.4 or below)
+2) Add service provider *(for Laravel 5.4 or below)*
 
     This package supports Laravel new [Package Discovery](https://laravel.com/docs/5.5/packages#package-discovery).
-    
+
     If you are using Laravel < 5.5, you need to add `Skydiver\LaravelRouteBlocker\LaravelRouteBlockerServiceProvider::class` to your `config/app.php` providers array:
-    
+
     ```php
-    'providers' => [ 
+    'providers' => [
         ...
         Skydiver\LaravelRouteBlocker\LaravelRouteBlockerServiceProvider::class,
     ]
@@ -35,7 +35,7 @@ Laravel 5.1. 5.2, 5.3, 5.4, 5.5, 5.6
 3) Publish the config file:
 
     Run the following command to publish the package config file:
-    
+
     ```bash
     $ php artisan vendor:publish --tag=LaravelRouteBlocker
     ```
@@ -62,7 +62,7 @@ Laravel 5.1. 5.2, 5.3, 5.4, 5.5, 5.6
         ],
     ],
     ```
-    
+
     Also, you can configure to throw an HTTP status code or redirect to a custom URL:
     ```
     'redirect_to'      => '',   // URL TO REDIRECT IF BLOCKED (LEAVE BLANK TO THROW STATUS)
@@ -73,11 +73,11 @@ Laravel 5.1. 5.2, 5.3, 5.4, 5.5, 5.6
 3) Put your protected routes inside a group and specify the whitelist parameter:
     ```
         Route::group(['middleware' => 'whitelist:my_group'], function() {
-    
+
             Route::get('/demo', function () {
                 return "DEMO";
             });
-    
+
         });
     ```
 
@@ -89,7 +89,7 @@ Laravel 5.1. 5.2, 5.3, 5.4, 5.5, 5.6
     ```
         $ php artisan route:blocks:groups
     ```
-    
+
     ```
         +---------+--------------+
         | Group   | IP           |

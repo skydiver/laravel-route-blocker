@@ -4,6 +4,7 @@ namespace Skydiver\LaravelRouteBlocker\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Str;
 
 class WhitelistMiddleware
 {
@@ -24,18 +25,20 @@ class WhitelistMiddleware
         // SEARCH IN WHITELIST
         if (is_array($allow)) {
             foreach ($allow as $addr) {
-                if (str_is($addr, $ip)) {
+                if (Str::is($addr, $ip)) {
                     return $next($request);
                 }
             }
         }
 
         // REDIRECT OR THROW ERROR
-        if (config('laravel-route-blocker.redirect_to')
-            && filter_var(config('laravel-route-blocker.redirect_to'), FILTER_VALIDATE_URL)) {
-            return redirect()->to(config('laravel-route-blocker.redirect_to'));
+        $redirect_to = config('laravel-route-blocker.redirect_to');
+        if (!empty($redirect_to) && filter_var($redirect_to, FILTER_VALIDATE_URL)) {
+            return redirect()->to($redirect_to);
         } else {
-            abort(config('laravel-route-blocker.response_status'), config('laravel-route-blocker.response_message'));
+            $response_status = config('laravel-route-blocker.response_status');
+            $response_message = config('laravel-route-blocker.response_message');
+            abort($response_status, $response_message);
         }
     }
 }
