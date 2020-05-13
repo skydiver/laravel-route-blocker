@@ -13,7 +13,7 @@ Laravel 5.x, 6.x and 7.x
 
 ## Installation
 
-1) Require the `skydiver/laravel-route-blocker` package in your `composer.json` and update your dependencies:
+1) To install through composer, run the following command from terminal:
 
     ```bash
     $ composer require skydiver/laravel-route-blocker
