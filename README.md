@@ -19,19 +19,6 @@ Laravel 5.x, 6.x and 7.x
     $ composer require skydiver/laravel-route-blocker
     ```
 
-2) Add service provider *(for Laravel 5.4 or below)*
-
-    This package supports Laravel new [Package Discovery](https://laravel.com/docs/5.5/packages#package-discovery).
-
-    If you are using Laravel < 5.5, you need to add `Skydiver\LaravelRouteBlocker\LaravelRouteBlockerServiceProvider::class` to your `config/app.php` providers array:
-
-    ```php
-    'providers' => [
-        ...
-        Skydiver\LaravelRouteBlocker\LaravelRouteBlockerServiceProvider::class,
-    ]
-    ```
-
 3) Publish the config file:
 
     Run the following command to publish the package config file:
@@ -39,6 +26,18 @@ Laravel 5.x, 6.x and 7.x
     ```bash
     $ php artisan vendor:publish --tag=LaravelRouteBlocker
     ```
+
+<details>
+<summary>Still using Laravel 5.4 or below?</summary>
+
+Please add service provider to your `config/app.php` providers array:
+```php
+'providers' => [
+    ...
+    Skydiver\LaravelRouteBlocker\LaravelRouteBlockerServiceProvider::class,
+]
+```
+</details>
 
 ---
 
