@@ -15,7 +15,6 @@
     <testsuites>
         <testsuite name="Laravel Route Blocket Package Test Suite">
             <directory suffix=".php">./tests/</directory>
-            <exclude>./tests/_setup/</exclude>
         </testsuite>
     </testsuites>
 </phpunit>

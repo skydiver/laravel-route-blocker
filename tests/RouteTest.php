@@ -8,6 +8,14 @@ class RouteTest extends Orchestra\Testbench\TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        Route::get('/group1', function () {
+            return 'Group #1 Page';
+        })->middleware('whitelist:group1');
+
+        Route::get('/group2', function () {
+            return 'Group #2 Page';
+        })->middleware('whitelist:group2');
     }
 
     protected function getPackageProviders($app)

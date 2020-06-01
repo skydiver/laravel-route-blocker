@@ -10,8 +10,6 @@ class TestPackageServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__ . '/_setup/routes/Test.php');
-
         $path = __DIR__.'/../src/config/config.php';
         $this->mergeConfigFrom($path, 'laravel-route-blocker');
 
