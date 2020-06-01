@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Skydiver\LaravelRouteBlocker\Tests\TestPackageServiceProvider;
 
 class RouteTest extends Orchestra\Testbench\TestCase
@@ -16,11 +17,41 @@ class RouteTest extends Orchestra\Testbench\TestCase
         ];
     }
 
-    /** @test */
-    public function visit_test_route()
+    public function test_allowed_route()
     {
-        $response = $this->get('test');
-        $response->assertSee('Private Page!');
+        $response = $this->get('/group1');
+        $response->assertSee('Group #1 Page');
         $response->assertStatus(200);
+    }
+
+    public function test_forbidden_route_returns_error_403()
+    {
+        $response = $this->get('/group2');
+        $response->assertSee('Forbidden');
+        $response->assertStatus(403);
+    }
+
+    public function test_forbidden_route_returns_error_404()
+    {
+        config(['laravel-route-blocker.response_status' => 404]);
+        $response = $this->get('/group2');
+        $response->assertSee('Not Found');
+        $response->assertStatus(404);
+    }
+
+    public function test_forbidden_route_returns_custom_error_message()
+    {
+        config(['laravel-route-blocker.response_message' => 'Custom Error']);
+        $response = $this->get('/group2');
+        $response->assertSee('Custom Error');
+        $response->assertStatus(403);
+    }
+
+    public function test_forbidden_route_redirect_to_login_page()
+    {
+        config(['laravel-route-blocker.redirect_to' => url()->current() . '/login']);
+        $response = $this->get('/group2');
+        $response->assertStatus(302);
+        $response->assertRedirect('/login');
     }
 }
