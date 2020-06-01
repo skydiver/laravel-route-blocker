@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
 use Skydiver\LaravelRouteBlocker\Tests\TestPackageServiceProvider;
 
-class RouteTest extends Orchestra\Testbench\TestCase
+class WhitelistRouteTest extends Orchestra\Testbench\TestCase
 {
     protected function setUp(): void
     {
@@ -11,11 +10,11 @@ class RouteTest extends Orchestra\Testbench\TestCase
 
         Route::get('/group1', function () {
             return 'Group #1 Page';
-        })->middleware('whitelist:group1');
+        })->middleware('whitelist:allowed_group_1');
 
         Route::get('/group2', function () {
             return 'Group #2 Page';
-        })->middleware('whitelist:group2');
+        })->middleware('whitelist:allowed_group_2');
     }
 
     protected function getPackageProviders($app)
