@@ -4,6 +4,7 @@ namespace Skydiver\LaravelRouteBlocker\Tests;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Skydiver\LaravelRouteBlocker\Middleware\BlacklistMiddleware;
 use Skydiver\LaravelRouteBlocker\Middleware\WhitelistMiddleware;
 
 class TestPackageServiceProvider extends ServiceProvider
@@ -15,5 +16,6 @@ class TestPackageServiceProvider extends ServiceProvider
 
         $router = $this->app->make(Router::class);
         $router->aliasMiddleware('whitelist', WhitelistMiddleware::class);
+        $router->aliasMiddleware('blacklist', BlacklistMiddleware::class);
     }
 }
