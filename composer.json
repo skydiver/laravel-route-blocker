@@ -8,9 +8,18 @@
         "php": ">=5.4.0",
         "illuminate/support": ">=5.1"
     },
+    "require-dev": {
+        "orchestra/testbench": "^3.8",
+        "phpunit/phpunit": "^7.5"
+    },
     "autoload": {
         "psr-4": {
             "Skydiver\\LaravelRouteBlocker\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Skydiver\\LaravelRouteBlocker\\Tests\\": "tests/"
         }
     },
     "extra": {
