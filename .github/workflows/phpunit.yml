@@ -1,8 +1,8 @@
 name: phpunit
 
 on:
-  push:
   pull_request:
+    types: [opened, edited, synchronize, reopened]
 
 jobs:
   tests:
@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
 
       - name: Cache dependencies
         uses: actions/cache@v1
@@ -27,6 +30,9 @@ jobs:
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-suggest
+
+      - name: Detecting PHP Code Standards Violations
+        run: composer run-script phpcs
 
       - name: Execute tests
         run: vendor/bin/phpunit --verbose
