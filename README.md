@@ -43,23 +43,36 @@ Please add service provider to your `config/app.php` providers array:
 
 ## Usage
 
-1) Register middleware in `app/Http/Kernel.php` on `$routeMiddleware` array:
+1) Register middlewares in `app/Http/Kernel.php` on `$routeMiddleware` array:
     ```
+        'blacklist' => \Skydiver\LaravelRouteBlocker\Middleware\BlacklistMiddleware::class,
         'whitelist' => \Skydiver\LaravelRouteBlocker\Middleware\WhitelistMiddleware::class,
     ```
+* Blacklist allows all traffic except matching rules.
+* Whitelist blocks all traffic except matching rules.
+* You can register both or just a single middleware.
 
-2) Create a config group on `config/laravel-route-blocker.php` and insert your allowed IPs:
+2) Create a config group on `config/laravel-route-blocker.php` and insert your allowed/blocked IPs:
     ```
-    'whitelist' => [
-        'my_group' => [
-            '127.0.0.1',
-            '192.168.17.0',
-            '10.0.1.*'
+        'whitelist' => [
+            'my_group' => [
+                '127.0.0.1',
+                '192.168.17.0',
+                '10.0.1.*'
+            ],
+            'another_group' => [
+                '8.8.8.*'
+            ],
         ],
-        'another_group' => [
-            '8.8.8.*'
+        'blacklist' => [
+            'blocked_ips' => [
+                '127.0.0.1',
+                '192.168.100.0',
+            ],
+            'blocked_ips2' => [
+                '8.8.8.8',
+            ],
         ],
-    ],
     ```
 
     Also, you can configure to throw an HTTP status code or redirect to a custom URL:
@@ -71,10 +84,20 @@ Please add service provider to your `config/app.php` providers array:
 
 3) Put your protected routes inside a group and specify the whitelist parameter:
     ```
+        // Only IPs matched on "my_group" will be allowed to access route
         Route::group(['middleware' => 'whitelist:my_group'], function() {
 
             Route::get('/demo', function () {
                 return "DEMO";
+            });
+
+        });
+
+        // Only IPs matched on "my_group" will be blocked to access route
+        Route::group(['middleware' => 'blacklist:blocked_ips'], function() {
+
+            Route::get('/private', function () {
+                return "Private Page";
             });
 
         });
@@ -90,21 +113,28 @@ Please add service provider to your `config/app.php` providers array:
     ```
 
     ```
-        +---------+--------------+
-        | Group   | IP           |
-        +---------+--------------+
-        | group1  | 127.0.0.1    |
-        | group1  | 127.0.0.2    |
-        | group1  | 192.168.17.0 |
-        | group1  | 10.0.0.*     |
-        | group2  | 8.8.8.8      |
-        | group2  | 8.8.8.*      |
-        | group2  | 8.8.4.4      |
-        +---------+--------------+
+        +-----------------+--------------+-----------+
+        | Group           | IP           | Type      |
+        +-----------------+--------------+-----------+
+        | allowed_group_1 | 127.0.0.1    | whitelist |
+        | allowed_group_1 | 127.0.0.2    | whitelist |
+        | allowed_group_1 | 192.168.17.0 | whitelist |
+        | allowed_group_1 | 10.0.0.*     | whitelist |
+        | allowed_group_2 | 8.8.8.8      | whitelist |
+        | allowed_group_2 | 8.8.8.*      | whitelist |
+        | allowed_group_2 | 8.8.4.4      | whitelist |
+        | blocked_ips_1   | 127.0.0.1    | blacklist |
+        | blocked_ips_1   | 127.0.0.2    | blacklist |
+        | blocked_ips_1   | 192.168.17.0 | blacklist |
+        | blocked_ips_1   | 10.0.0.*     | blacklist |
+        | blocked_ips_2   | 8.8.8.8      | blacklist |
+        | blocked_ips_2   | 8.8.8.*      | blacklist |
+        | blocked_ips_2   | 8.8.4.4      | blacklist |
+        +-----------------+--------------+-----------+
     ```
 
 ---
 
 ## Notes
 
-**You can create as many whitelists groups as you wish and protect differents set of routes with differents IPs**
+**You can create as many blacklist/whitelists groups as you wish and protect differents set of routes with differents IPs**
