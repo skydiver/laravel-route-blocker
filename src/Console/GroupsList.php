@@ -30,7 +30,7 @@ class GroupsList extends Command
 
         $list = array_merge(
             $this->parseGroup($allow, 'whitelist'),
-            $this->parseGroup($block, 'blacklist'),
+            $this->parseGroup($block, 'blacklist')
         );
 
         $this->table($headers, $list);
