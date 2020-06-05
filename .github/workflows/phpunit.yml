@@ -2,7 +2,7 @@ name: phpunit
 
 on:
   pull_request:
-    types: [opened, edited, synchronize, reopened]
+    types: [opened, synchronize, reopened]
 
 jobs:
   tests:
