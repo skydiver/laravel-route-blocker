@@ -1,6 +1,8 @@
 name: phpunit
 
-on: [push]
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
 
 jobs:
 
@@ -34,7 +36,7 @@ jobs:
         run: composer validate
 
       - name: Install Laravel Route Blocker
-        run: composer require skydiver/laravel-route-blocker:dev-${GITHUB_REF##*/}#${GITHUB_SHA}
+        run: composer require skydiver/laravel-route-blocker:dev-${{ github.event.pull_request.head.ref }}#${{ github.event.pull_request.head.sha }}
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -80,7 +82,7 @@ jobs:
         run: composer validate
 
       - name: Install Laravel Route Blocker
-        run: composer require skydiver/laravel-route-blocker:dev-${GITHUB_REF##*/}#${GITHUB_SHA}
+        run: composer require skydiver/laravel-route-blocker:dev-${{ github.event.pull_request.head.ref }}#${{ github.event.pull_request.head.sha }}
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -126,7 +128,7 @@ jobs:
         run: composer validate
 
       - name: Install Laravel Route Blocker
-        run: composer require skydiver/laravel-route-blocker:dev-${GITHUB_REF##*/}#${GITHUB_SHA}
+        run: composer require skydiver/laravel-route-blocker:dev-${{ github.event.pull_request.head.ref }}#${{ github.event.pull_request.head.sha }}
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -172,7 +174,7 @@ jobs:
         run: composer validate
 
       - name: Install Laravel Route Blocker
-        run: composer require skydiver/laravel-route-blocker:dev-${GITHUB_REF##*/}#${GITHUB_SHA}
+        run: composer require skydiver/laravel-route-blocker:dev-${{ github.event.pull_request.head.ref }}#${{ github.event.pull_request.head.sha }}
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -218,7 +220,7 @@ jobs:
         run: composer validate
 
       - name: Install Laravel Route Blocker
-        run: composer require skydiver/laravel-route-blocker:dev-${GITHUB_REF##*/}#${GITHUB_SHA}
+        run: composer require skydiver/laravel-route-blocker:dev-${{ github.event.pull_request.head.ref }}#${{ github.event.pull_request.head.sha }}
 
       - name: Checkout code
         uses: actions/checkout@v2
