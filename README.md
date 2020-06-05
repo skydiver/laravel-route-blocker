@@ -75,6 +75,8 @@ Please add service provider to your `config/app.php` providers array:
         ],
     ```
 
+    * You can create as many blacklist/whitelists groups as you wish and protect differents set of routes with differents IPs
+
     Also, you can configure to throw an HTTP status code or redirect to a custom URL:
     ```
     'redirect_to'      => '',   // URL TO REDIRECT IF BLOCKED (LEAVE BLANK TO THROW STATUS)
@@ -135,6 +137,10 @@ Please add service provider to your `config/app.php` providers array:
 
 ---
 
-## Notes
+## Testing
+To manually run test suite:
+```
+vendor/bin/phpunit --verbose
+```
 
-**You can create as many blacklist/whitelists groups as you wish and protect differents set of routes with differents IPs**
+Test files inside `tests/Feature` should be run by GitHub action only.
