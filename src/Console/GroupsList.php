@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 
 class GroupsList extends Command
 {
-
     protected $name        = 'route:blocks:groups';
     protected $description = 'Lists routes blocks groups.';
 
@@ -25,21 +24,34 @@ class GroupsList extends Command
 
     public function fire()
     {
-
         $allow   = config('laravel-route-blocker.whitelist');
-        $headers = ['Group', 'IP'];
-        $list    = [];
+        $block   = config('laravel-route-blocker.blacklist');
+        $headers = ['Group', 'IP', 'Type'];
 
-        if (is_array($allow)) {
-            foreach ($allow as $name => $addrs) {
-                foreach ($addrs as $addr) {
-                    $list[] = [
-                        $name, $addr
-                    ];
-                }
+        $list = array_merge(
+            $this->parseGroup($allow, 'whitelist'),
+            $this->parseGroup($block, 'blacklist')
+        );
+
+        $this->table($headers, $list);
+    }
+
+    private function parseGroup($group, $type)
+    {
+        if (!is_array($group)) {
+            return [];
+        }
+
+        $list = [];
+
+        foreach ($group as $name => $addrs) {
+            foreach ($addrs as $addr) {
+                $list[] = [
+                    $name, $addr, $type
+                ];
             }
         }
 
-        $this->table($headers, $list);
+        return $list;
     }
 }

@@ -13,23 +13,10 @@ Laravel 5.x, 6.x and 7.x
 
 ## Installation
 
-1) Require the `skydiver/laravel-route-blocker` package in your `composer.json` and update your dependencies:
+1) To install through composer, run the following command from terminal:
 
     ```bash
     $ composer require skydiver/laravel-route-blocker
-    ```
-
-2) Add service provider *(for Laravel 5.4 or below)*
-
-    This package supports Laravel new [Package Discovery](https://laravel.com/docs/5.5/packages#package-discovery).
-
-    If you are using Laravel < 5.5, you need to add `Skydiver\LaravelRouteBlocker\LaravelRouteBlockerServiceProvider::class` to your `config/app.php` providers array:
-
-    ```php
-    'providers' => [
-        ...
-        Skydiver\LaravelRouteBlocker\LaravelRouteBlockerServiceProvider::class,
-    ]
     ```
 
 3) Publish the config file:
@@ -40,28 +27,55 @@ Laravel 5.x, 6.x and 7.x
     $ php artisan vendor:publish --tag=LaravelRouteBlocker
     ```
 
+<details>
+<summary>Still using Laravel 5.4 or below?</summary>
+
+Please add service provider to your `config/app.php` providers array:
+```php
+'providers' => [
+    ...
+    Skydiver\LaravelRouteBlocker\LaravelRouteBlockerServiceProvider::class,
+]
+```
+</details>
+
 ---
 
 ## Usage
 
-1) Register middleware in `app/Http/Kernel.php` on `$routeMiddleware` array:
+1) Register middlewares in `app/Http/Kernel.php` on `$routeMiddleware` array:
     ```
+        'blacklist' => \Skydiver\LaravelRouteBlocker\Middleware\BlacklistMiddleware::class,
         'whitelist' => \Skydiver\LaravelRouteBlocker\Middleware\WhitelistMiddleware::class,
     ```
+* Blacklist allows all traffic except matching rules.
+* Whitelist blocks all traffic except matching rules.
+* You can register both or just a single middleware.
 
-2) Create a config group on `config/laravel-route-blocker.php` and insert your allowed IPs:
+2) Create a config group on `config/laravel-route-blocker.php` and insert your allowed/blocked IPs:
     ```
-    'whitelist' => [
-        'my_group' => [
-            '127.0.0.1',
-            '192.168.17.0',
-            '10.0.1.*'
+        'whitelist' => [
+            'my_group' => [
+                '127.0.0.1',
+                '192.168.17.0',
+                '10.0.1.*'
+            ],
+            'another_group' => [
+                '8.8.8.*'
+            ],
         ],
-        'another_group' => [
-            '8.8.8.*'
+        'blacklist' => [
+            'blocked_ips' => [
+                '127.0.0.1',
+                '192.168.100.0',
+            ],
+            'blocked_ips2' => [
+                '8.8.8.8',
+            ],
         ],
-    ],
     ```
+
+    * You can create as many blacklist/whitelists groups as you wish and protect differents set of routes with differents IPs
 
     Also, you can configure to throw an HTTP status code or redirect to a custom URL:
     ```
@@ -72,10 +86,20 @@ Laravel 5.x, 6.x and 7.x
 
 3) Put your protected routes inside a group and specify the whitelist parameter:
     ```
+        // Only IPs matched on "my_group" will be allowed to access route
         Route::group(['middleware' => 'whitelist:my_group'], function() {
 
             Route::get('/demo', function () {
                 return "DEMO";
+            });
+
+        });
+
+        // Only IPs matched on "my_group" will be blocked to access route
+        Route::group(['middleware' => 'blacklist:blocked_ips'], function() {
+
+            Route::get('/private', function () {
+                return "Private Page";
             });
 
         });
@@ -91,21 +115,32 @@ Laravel 5.x, 6.x and 7.x
     ```
 
     ```
-        +---------+--------------+
-        | Group   | IP           |
-        +---------+--------------+
-        | group1  | 127.0.0.1    |
-        | group1  | 127.0.0.2    |
-        | group1  | 192.168.17.0 |
-        | group1  | 10.0.0.*     |
-        | group2  | 8.8.8.8      |
-        | group2  | 8.8.8.*      |
-        | group2  | 8.8.4.4      |
-        +---------+--------------+
+        +-----------------+--------------+-----------+
+        | Group           | IP           | Type      |
+        +-----------------+--------------+-----------+
+        | allowed_group_1 | 127.0.0.1    | whitelist |
+        | allowed_group_1 | 127.0.0.2    | whitelist |
+        | allowed_group_1 | 192.168.17.0 | whitelist |
+        | allowed_group_1 | 10.0.0.*     | whitelist |
+        | allowed_group_2 | 8.8.8.8      | whitelist |
+        | allowed_group_2 | 8.8.8.*      | whitelist |
+        | allowed_group_2 | 8.8.4.4      | whitelist |
+        | blocked_ips_1   | 127.0.0.1    | blacklist |
+        | blocked_ips_1   | 127.0.0.2    | blacklist |
+        | blocked_ips_1   | 192.168.17.0 | blacklist |
+        | blocked_ips_1   | 10.0.0.*     | blacklist |
+        | blocked_ips_2   | 8.8.8.8      | blacklist |
+        | blocked_ips_2   | 8.8.8.*      | blacklist |
+        | blocked_ips_2   | 8.8.4.4      | blacklist |
+        +-----------------+--------------+-----------+
     ```
 
 ---
 
-## Notes
+## Testing
+To manually run test suite:
+```
+vendor/bin/phpunit --verbose
+```
 
-**You can create as many whitelists groups as you wish and protect differents set of routes with differents IPs**
+Test files inside `tests/Feature` should be run by GitHub action only.

@@ -1,0 +1,240 @@
+name: feature
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+
+  ##################################################################################################
+  ## LARAVEL 7.0 with PHP 7.4
+  ##################################################################################################
+  laravel7:
+    runs-on: ubuntu-latest
+    name: Test Suite on Laravel 7
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          coverage: none
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-composer-${{ hashFiles('composer.json') }}
+
+      - name: Install Laravel
+        run: composer create-project --prefer-dist laravel/laravel .
+
+      - name: Log Laravel version
+        run: php artisan -V
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install Laravel Route Blocker
+        run: composer require skydiver/laravel-route-blocker:dev-${{ github.event.pull_request.head.ref }}#${{ github.event.pull_request.head.sha }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          path: _repo
+
+      - name: Copy test files
+        run: rm tests/Feature/ExampleTest.php && cp -r _repo/tests/Feature tests/
+
+      - name: Run composer dump-autoload
+        run: composer dumpautoload
+
+      - name: Execute tests
+        run: vendor/bin/phpunit ./tests/Feature/ --verbose
+
+  ##################################################################################################
+  ## LARAVEL 6.0 with PHP 7.3
+  ##################################################################################################
+  laravel6:
+    runs-on: ubuntu-latest
+    name: Test Suite on Laravel 6
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.3
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          coverage: none
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-composer-${{ hashFiles('composer.json') }}
+
+      - name: Install Laravel
+        run: composer create-project --prefer-dist laravel/laravel . "6.*"
+
+      - name: Log Laravel version
+        run: php artisan -V
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install Laravel Route Blocker
+        run: composer require skydiver/laravel-route-blocker:dev-${{ github.event.pull_request.head.ref }}#${{ github.event.pull_request.head.sha }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          path: _repo
+
+      - name: Copy test files
+        run: rm tests/Feature/ExampleTest.php && cp -r _repo/tests/Feature tests/
+
+      - name: Run composer dump-autoload
+        run: composer dumpautoload
+
+      - name: Execute tests
+        run: vendor/bin/phpunit ./tests/Feature/ --verbose
+
+  ##################################################################################################
+  ## LARAVEL 5.8 with PHP 7.2
+  ##################################################################################################
+  laravel5_8:
+    runs-on: ubuntu-latest
+    name: Test Suite on Laravel 5.8
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.2
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          coverage: none
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-composer-${{ hashFiles('composer.json') }}
+
+      - name: Install Laravel
+        run: composer create-project --prefer-dist laravel/laravel . "5.8.*"
+
+      - name: Log Laravel version
+        run: php artisan -V
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install Laravel Route Blocker
+        run: composer require skydiver/laravel-route-blocker:dev-${{ github.event.pull_request.head.ref }}#${{ github.event.pull_request.head.sha }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          path: _repo
+
+      - name: Copy test files
+        run: rm tests/Feature/ExampleTest.php && cp -r _repo/tests/Feature tests/
+
+      - name: Run composer dump-autoload
+        run: composer dumpautoload
+
+      - name: Execute tests
+        run: vendor/bin/phpunit ./tests/Feature/ --verbose
+
+  ##################################################################################################
+  ## LARAVEL 5.5 with PHP 7.1
+  ##################################################################################################
+  laravel5_5:
+    runs-on: ubuntu-latest
+    name: Test Suite on Laravel 5.5
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.1
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          coverage: none
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-composer-${{ hashFiles('composer.json') }}
+
+      - name: Install Laravel
+        run: composer create-project --prefer-dist laravel/laravel . "5.5.*"
+
+      - name: Log Laravel version
+        run: php artisan -V
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install Laravel Route Blocker
+        run: composer require skydiver/laravel-route-blocker:dev-${{ github.event.pull_request.head.ref }}#${{ github.event.pull_request.head.sha }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          path: _repo
+
+      - name: Copy test files
+        run: rm tests/Feature/ExampleTest.php && cp -r _repo/tests/Feature tests/
+
+      - name: Run composer dump-autoload
+        run: composer dumpautoload
+
+      - name: Execute tests
+        run: vendor/bin/phpunit ./tests/Feature/ --verbose
+
+  ##################################################################################################
+  ## LARAVEL 5.4 with PHP 7.1
+  ##################################################################################################
+  laravel5_4:
+    runs-on: ubuntu-latest
+    name: Test Suite on Laravel 5.4
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.1
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          coverage: none
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-composer-${{ hashFiles('composer.json') }}
+
+      - name: Install Laravel
+        run: composer create-project --prefer-dist laravel/laravel . "5.4.*"
+
+      - name: Log Laravel version
+        run: php artisan -V
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install Laravel Route Blocker
+        run: composer require skydiver/laravel-route-blocker:dev-${{ github.event.pull_request.head.ref }}#${{ github.event.pull_request.head.sha }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          path: _repo
+
+      - name: Copy test files
+        run: rm tests/Feature/ExampleTest.php && cp -r _repo/tests/Feature tests/
+
+      - name: Run composer dump-autoload
+        run: composer dumpautoload
+
+      - name: Register servide provider
+        run: sed -i "/'providers'/a Skydiver\\\LaravelRouteBlocker\\\LaravelRouteBlockerServiceProvider::class," config/app.php
+
+      - name: Execute tests
+        run: vendor/bin/phpunit ./tests/Feature/ --verbose

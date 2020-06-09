@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Str;
 
-class WhitelistMiddleware extends BaseMiddleware
+class BlacklistMiddleware extends BaseMiddleware
 {
 
     protected $auth;
@@ -19,19 +19,20 @@ class WhitelistMiddleware extends BaseMiddleware
     public function handle($request, Closure $next, $group)
     {
 
-        $allow = config('laravel-route-blocker.whitelist.' . $group);
+        $block = config('laravel-route-blocker.blacklist.' . $group);
         $ip    = $request->getClientIp();
 
-        // SEARCH IN WHITELIST
-        if (is_array($allow)) {
-            foreach ($allow as $addr) {
+        // SEARCH IN BLACKLIST
+        if (is_array($block)) {
+            foreach ($block as $addr) {
                 if (Str::is($addr, $ip)) {
-                    return $next($request);
+                    // REDIRECT OR THROW ERROR
+                    return $this->handleNoAccess();
                 }
             }
         }
 
-        // REDIRECT OR THROW ERROR
-        return $this->handleNoAccess();
+        // REQUEST IS AUTHORIZED
+        return $next($request);
     }
 }
