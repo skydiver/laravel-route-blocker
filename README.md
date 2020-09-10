@@ -7,7 +7,7 @@ Block routes by IP
 ---
 
 ## Requirements
-Laravel 5.x, 6.x and 7.x
+Laravel 5.x, 6.x, 7.x and 8.x
 
 ---
 
